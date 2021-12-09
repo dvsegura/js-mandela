@@ -1,0 +1,112 @@
+ <!doctype html>
+ <html>
+
+   <head>
+      <meta charset="utf-8"/>
+      <meta name="description" content="Resumen del contenido de la página">
+      <title>Título de la página</title>
+      <!--<script src="https://code.jquery.com/jquery-1.11.3.js"></script>-->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	  
+      <script type="text/javascript">
+           /*window.onload=inicio;*/
+           $("document").ready(inicio);
+		   var altura_navegador=window.innerHeight;
+           function inicio(){ 
+                window.onresize=recolocar;		   
+		        $("#nube").css("top",altura_navegador+"px").css("right","40px");
+				$("#montanya").css("top",altura_navegador+"px").css("left","0px");
+                $("#sol").css("top",altura_navegador+"px").css("left","100px").animate({"top":"40px"},1500,"easeOutElastic",salir_nube); 
+                $("body").click(plantar); 
+           				
+           } 
+		   function salir_nube(){
+		    $("#nube").animate({"top":"30px"},1600,"easeOutElastic",salir_montanya);
+		   }
+		   function salir_montanya(){
+		   var formula=altura_navegador-$("#montanya img").height()-15;
+		    $("#montanya").animate({"top":formula+"px"},1200,"easeOutBounce");
+		   }
+		   function plantar(e){
+		    x=e.clientX-40;
+			y=e.clientY-15;	//center img
+			$("body").append("<div class='semilla'><img src='img/semilla.png' width='80px'></div>");
+			ultima=$(".semilla").length-1;	//otra aplicacion del length	
+			$(".semilla").eq(ultima).css("left",x+"px").css("top",y+"px");// semilla en el centro
+			//hacer caer la semilla			
+			
+			var distancia_recorrida=altura_navegador-$(".semilla").height();			
+			$(".semilla").eq(ultima).animate({"top":distancia_recorrida},1000,"easeOutBounce",crear_planta);
+			     
+		   }
+		   
+		   function crear_planta(){
+		    document.getElementById("audio2").play();		   
+		    r=Math.ceil(Math.random()*4);
+			//alert(r);
+		    $(".semilla").eq(ultima).find("img").attr("src","img/planta"+r+".png");
+		   }
+		   function recolocar(){
+		    altura_navegador=window.innerHeight;
+			alert(altura_navegador);
+		    formula=altura_navegador-$("#montanya img").height()-15;
+		    $("#montanya").css("top",formula+"px");
+			//semillas
+			temp=altura_navegador-$(".semilla").height();
+			$("semillas").css("top",temp);
+		   
+		   }
+		   
+      </script>
+      <!-- <script src="js/codigo.js"></script> -->  
+	  <!-- <link rel="stylesheet" href="CSS/style.css"/> -->
+      <style type="text/css">
+	  body,html{
+	  height:100%;
+	  
+	  }
+	  body{
+	  overflow:hidden;
+	  margin:0;
+	  border-bottom:20px solid green;
+	  box-sizing:border-box;
+	  background-color:#9fd0f9b0;	  
+	  }
+	  
+	  #nube,#montanya,#sol{
+	  position:absolute;
+	  
+	  }	  
+	  #nube{
+	    opacity:0.7; 
+	  }
+	  #montanya{
+	  
+	    width:100%;
+	  }
+	  .semilla{	  
+	    position:absolute;
+		
+	  }
+
+	  
+      </style> 
+              
+   </head>
+
+   <body>
+   <div id="sol">
+    <img src="img/sol.png" width="200px">
+   </div>
+    <div id="nube">
+    <img src="img/nube.png" width="300px">
+   </div>
+   <div id="montanya">
+    <img src="img/monta.png" width="100%">
+   </div>
+   <audio autoplay controls loop ><source src="img/ambiente.mp3" type="audio/mp3"></audio>
+   <audio id="audio2" controls ><source src="img/bote.mp3" type="audio/mp3"></audio>
+   </body> 
+
+ </html>
