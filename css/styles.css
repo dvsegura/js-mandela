@@ -1,0 +1,29 @@
+body,
+html {
+  height: 100%;
+}
+body {
+  overflow: hidden;
+  margin: 0;
+  border-bottom: 20px solid green;
+  box-sizing: border-box;
+  background-color: #9fd0f9b0;
+}
+
+#nube,
+#montanya,
+#sol {
+  position: absolute;
+}
+#nube {
+  opacity: 0.7;
+}
+#montanya {
+  width: 100%;
+}
+.semilla {
+  position: absolute;
+}
+audio {
+  display: none;
+}
